@@ -645,6 +645,50 @@ form.enquiry .btn{width:100%}
   var nameErr = document.getElementById('e-name');
   var phoneErr = document.getElementById('e-phone');
   var formMsg = document.getElementById('form-msg');
+  var typeSelect = document.getElementById('f-type');
+var audienceInputs = form.querySelectorAll('input[name="audience"]');
+
+var customerTypes = [
+  'Retailer or Distributor',
+  'Grocery or Supermarket',
+  'Restaurant or Food Business',
+  'Garments or Apparel',
+  'Mobile or Electronics',
+  'Optical or Dairy',
+  'Other'
+];
+
+var partnerTypes = [
+  'Software Vendor / Reseller',
+  'IT or Computer Dealer',
+  'Distributor / Wholesaler',
+  'Marketing Agency',
+  'Freelancer / Consultant',
+  'Accountant / CA',
+  'Business Solution Provider',
+  'Other'
+];
+
+function updateBusinessTypes() {
+  var selectedAudience = form.querySelector('input[name="audience"]:checked');
+  var isPartner = selectedAudience && selectedAudience.value === 'Partner, reseller or distributor';
+  var options = isPartner ? partnerTypes : customerTypes;
+
+  typeSelect.innerHTML = '<option value="">Select one</option>';
+
+  options.forEach(function(item) {
+    var option = document.createElement('option');
+    option.textContent = item;
+    option.value = item;
+    typeSelect.appendChild(option);
+  });
+}
+
+audienceInputs.forEach(function(input) {
+  input.addEventListener('change', updateBusinessTypes);
+});
+
+updateBusinessTypes();
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
