@@ -85,7 +85,31 @@ section{padding:88px 0;scroll-margin-top:72px}
 .btn-wa:hover{background:#1ebe5a}
 
 /* Header */
-.header{
+/* Executive Topbar */
+.topbar{
+  background:#061431;
+  color:#E8C964;
+  border-bottom:1px solid rgba(201,162,39,.25);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:1.2px;
+}
+.topbar-inner{
+  min-height:34px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.topbar a{
+  color:#FFFFFF;
+  font-weight:500;
+  letter-spacing:.3px;
+}
+.topbar a:hover{
+  color:#E8C964;
+}
+  .header{
   position:sticky;
   top:0;
   z-index:100;
@@ -120,6 +144,19 @@ section{padding:88px 0;scroll-margin-top:72px}
 }
 .brand-name span{
   color:var(--gold);
+}
+  .brand-lockup{
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.brand-tagline{
+  font-family:var(--fb);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:2px;
+  color:var(--gold-light);
+  white-space:nowrap;
 }
 .site-logo{
   height:56px;
@@ -346,6 +383,30 @@ form.enquiry .btn{width:100%}
   form.enquiry{padding:24px}
   .footer-top{grid-template-columns:1fr}
   .footer-bottom{flex-direction:column;text-align:center}
+  .topbar{
+  font-size:9px;
+  letter-spacing:.7px;
+}
+.topbar-inner{
+  min-height:auto;
+  padding:6px 0;
+  flex-direction:column;
+  justify-content:center;
+  gap:3px;
+}
+  .nav{
+  height:72px;
+}
+.brand{
+  gap:10px;
+}
+.brand-lockup{
+  gap:3px;
+}
+.brand-tagline{
+  font-size:7px;
+  letter-spacing:1px;
+}
   .brand-name{font-size:1.05rem}
 }
 @media (max-width:380px){
@@ -358,10 +419,19 @@ form.enquiry .btn{width:100%}
 <a href="#main" class="skip">Skip to content</a>
 
 <header class="header" id="header">
+  <div class="topbar">
+  <div class="container topbar-inner">
+    <span>PAN INDIA BUSINESS SOLUTIONS</span>
+    <a href="https://wa.me/918102044459">WhatsApp: +91 81020 44459</a>
+  </div>
+  </div>
   <nav class="container nav" aria-label="Main navigation">
     <a href="#home" class="brand" aria-label="ChiNav Enterprises home">
       <img class="site-logo" src="assets/chinav-logo.png" alt="ChiNav Enterprises logo" width="88" height="48">
-      <span class="brand-name">ChiNav <span>Enterprises</span></span>
+      <span class="brand-lockup">
+  <span class="brand-name">ChiNav <span>Enterprises</span></span>
+  <span class="brand-tagline">TRUST | TECHNOLOGY | GROWTH</span>
+      </span>
     </a>
     <ul class="nav-links" id="nav-links">
       <li><a href="#about">About</a></li>
