@@ -949,57 +949,263 @@ updateBusinessTypes();
 }
 </style>
 
-<div id="chinav-admin-login">
-  <button class="admin-open" type="button"
-    onclick="document.getElementById('chinav-admin-panel').style.display='flex'">
-    Admin Login
-  </button>
+<!-- ChiNav Supabase Admin Login Start -->
 
-  <div class="admin-panel" id="chinav-admin-panel">
-    <div class="admin-card">
-      <button class="admin-close" type="button"
-        onclick="document.getElementById('chinav-admin-panel').style.display='none'">
-        &times;
-      </button>
+<style>
+#chinav-admin-open {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 99990;
+  padding: 13px 20px;
+  background: #12345a;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-      <h2>ChiNav Enterprises</h2>
-      <p style="text-align:center;color:#64748b">
-        Technology Platform · Admin Portal
-      </p>
+#chinav-admin-panel {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(10, 20, 40, .82);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
-      <form id="chinav-admin-form">
-        <label>Email Address</label>
-        <input type="email" id="chinav-admin-email"
-          placeholder="Enter your email" required>
+#chinav-admin-panel .admin-card {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  padding: 28px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  position: relative;
+}
 
-        <label>Password</label>
-        <input type="password" id="chinav-admin-password"
-          placeholder="Enter your password" required>
+#chinav-admin-panel h2,
+#chinav-admin-panel .admin-subtitle {
+  text-align: center;
+}
 
-        <button class="admin-submit" type="submit">
-          Sign In
-        </button>
+#chinav-admin-panel h2 {
+  color: #12345a;
+}
 
-        <div id="chinav-admin-message">
-          Secure Admin Access
-        </div>
-      </form>
-    </div>
+#chinav-admin-panel label {
+  display: block;
+  margin: 14px 0 6px;
+  font-weight: bold;
+}
+
+#chinav-admin-panel input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+}
+
+#chinav-admin-panel button {
+  padding: 12px;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+#chinav-admin-panel .admin-submit {
+  width: 100%;
+  margin-top: 18px;
+  background: #12345a;
+  color: white;
+  font-weight: bold;
+}
+
+#chinav-admin-panel .admin-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: #e2e8f0;
+  color: #12345a;
+}
+
+#chinav-admin-panel #admin-message {
+  text-align: center;
+  font-size: 14px;
+  color: #334155;
+  overflow-wrap: anywhere;
+}
+
+#chinav-admin-panel #admin-logout {
+  width: 100%;
+  background: #9b2635;
+  color: white;
+}
+</style>
+
+<button id="chinav-admin-open" type="button">
+  Admin Login
+</button>
+
+<div id="chinav-admin-panel">
+  <div class="admin-card">
+
+    <button class="admin-close" id="admin-close"
+      type="button">✕</button>
+
+    <h2>ChiNav Enterprises</h2>
+
+    <p class="admin-subtitle">
+      Technology Platform · Admin Portal
+    </p>
+
+    <form id="admin-form">
+      <label for="admin-email">Email Address</label>
+      <input id="admin-email" type="email"
+        placeholder="Enter your email" required>
+
+      <label for="admin-password">Password</label>
+      <input id="admin-password" type="password"
+        placeholder="Enter your password" required>
+
+      <button class="admin-submit" id="admin-submit"
+        type="submit">Sign In</button>
+    </form>
+
+    <p id="admin-message" aria-live="polite">
+      Secure Admin Access
+    </p>
+
+    <button id="admin-logout" type="button" hidden>
+      Sign Out
+    </button>
+
   </div>
 </div>
 
-<script>
-(function () {
-  const form = document.getElementById('chinav-admin-form');
-  const message = document.getElementById('chinav-admin-message');
+<script type="module">
+import { createClient } from
+'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-  form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    message.textContent =
-      'Login interface ready. Authentication setup is next.';
-  });
-})();
+const SUPABASE_URL =
+'https://cqothhbfkhhqqqlkqmgj.supabase.co';
+
+const SUPABASE_PUBLISHABLE_KEY =
+'sb_publishable_rxPvRMvfNgWglydnE03saA_bEXnfN0U';
+
+const supabase = createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+);
+
+const panel = document.getElementById('chinav-admin-panel');
+const openButton = document.getElementById('chinav-admin-open');
+const closeButton = document.getElementById('admin-close');
+const form = document.getElementById('admin-form');
+const message = document.getElementById('admin-message');
+const submitButton = document.getElementById('admin-submit');
+const logoutButton = document.getElementById('admin-logout');
+
+function showMessage(text) {
+  message.textContent = text;
+}
+
+openButton.addEventListener('click', () => {
+  panel.style.display = 'flex';
+});
+
+closeButton.addEventListener('click', () => {
+  panel.style.display = 'none';
+});
+
+async function verifyAdmin(user) {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single();
+
+  if (error || !data || data.role !== 'admin') {
+    await supabase.auth.signOut();
+    form.hidden = false;
+    logoutButton.hidden = true;
+    showMessage('Access denied: Admin account required.');
+    return false;
+  }
+
+  form.hidden = true;
+  logoutButton.hidden = false;
+  showMessage('Admin verified. Login successful.');
+  return true;
+}
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  submitButton.disabled = true;
+  showMessage('Signing in...');
+
+  const email =
+    document.getElementById('admin-email').value.trim();
+
+  const password =
+    document.getElementById('admin-password').value;
+
+  try {
+    const { data, error } =
+      await supabase.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if (error) {
+      showMessage('Login failed: ' + error.message);
+      return;
+    }
+
+    const verified = await verifyAdmin(data.user);
+
+    if (!verified) {
+      showMessage('Your account does not have Admin access.');
+    }
+
+  } catch (error) {
+    showMessage('Connection error. Please try again.');
+  } finally {
+    submitButton.disabled = false;
+  }
+});
+
+logoutButton.addEventListener('click', async () => {
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    showMessage('Sign out failed. Please try again.');
+    return;
+  }
+
+  form.hidden = false;
+  form.reset();
+  logoutButton.hidden = true;
+  showMessage('You have signed out.');
+});
+
+const { data: sessionData } =
+  await supabase.auth.getSession();
+
+if (sessionData.session) {
+  panel.style.display = 'flex';
+  await verifyAdmin(sessionData.session.user);
+}
 </script>
-<!-- ChiNav Admin Login - End -->
+
+<!-- ChiNav Supabase Admin Login End -->
+  
 </body>
 </html>
