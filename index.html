@@ -872,5 +872,134 @@ updateBusinessTypes();
   document.getElementById('year').textContent = new Date().getFullYear();
 })();
 </script>
+  
+<!-- ChiNav Admin Login - Start -->
+<style>
+#chinav-admin-login {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+}
+#chinav-admin-login .admin-open {
+  background: #102b50;
+  color: white;
+  border: 1px solid #c9a44c;
+  padding: 13px 20px;
+  border-radius: 9px;
+  font-weight: bold;
+  cursor: pointer;
+}
+#chinav-admin-login .admin-panel {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #071629dd;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+#chinav-admin-login .admin-card {
+  background: white;
+  width: 100%;
+  max-width: 390px;
+  padding: 30px 24px;
+  border-radius: 16px;
+  position: relative;
+}
+#chinav-admin-login h2 {
+  color: #102b50;
+  text-align: center;
+}
+#chinav-admin-login label {
+  display: block;
+  margin: 15px 0 7px;
+  font-weight: bold;
+}
+#chinav-admin-login input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+#chinav-admin-login .admin-submit {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  background: #102b50;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#chinav-admin-login .admin-close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  border: 0;
+  background: none;
+  font-size: 25px;
+}
+#chinav-admin-message {
+  text-align: center;
+  font-size: 13px;
+  margin-top: 15px;
+}
+</style>
+
+<div id="chinav-admin-login">
+  <button class="admin-open" type="button"
+    onclick="document.getElementById('chinav-admin-panel').style.display='flex'">
+    Admin Login
+  </button>
+
+  <div class="admin-panel" id="chinav-admin-panel">
+    <div class="admin-card">
+      <button class="admin-close" type="button"
+        onclick="document.getElementById('chinav-admin-panel').style.display='none'">
+        &times;
+      </button>
+
+      <h2>ChiNav Enterprises</h2>
+      <p style="text-align:center;color:#64748b">
+        Technology Platform · Admin Portal
+      </p>
+
+      <form id="chinav-admin-form">
+        <label>Email Address</label>
+        <input type="email" id="chinav-admin-email"
+          placeholder="Enter your email" required>
+
+        <label>Password</label>
+        <input type="password" id="chinav-admin-password"
+          placeholder="Enter your password" required>
+
+        <button class="admin-submit" type="submit">
+          Sign In
+        </button>
+
+        <div id="chinav-admin-message">
+          Secure Admin Access
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const form = document.getElementById('chinav-admin-form');
+  const message = document.getElementById('chinav-admin-message');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    message.textContent =
+      'Login interface ready. Authentication setup is next.';
+  });
+})();
+</script>
+<!-- ChiNav Admin Login - End -->
 </body>
 </html>
