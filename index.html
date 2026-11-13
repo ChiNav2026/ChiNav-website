@@ -354,7 +354,7 @@ form.enquiry .btn{width:100%}
 @media (max-width:1080px){
   .nav-toggle{display:flex}
   .nav-links{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:var(--navy-dark);max-height:0;overflow:hidden;transition:max-height .35s ease}
-  .nav-links.open{max-height:520px}
+  .nav-links.open{max-height:80vh;overflow-y:auto}
   .nav-links a{display:block;padding:16px 4%;border-top:1px solid rgba(255,255,255,.08)}
   .nav-links .nav-cta{display:block;margin:12px 4% 16px;text-align:center;border-top:none;padding:14px}
   .g4{grid-template-columns:repeat(2,1fr)}
@@ -440,6 +440,9 @@ form.enquiry .btn{width:100%}
       <li><a href="#industries">Industries</a></li>
       <li><a href="#partner-with-us">Partner With Us</a></li>
       <li><a href="#contact" class="nav-cta">Contact</a></li>
+      <li><a href="#partner-login">Partner Login</a></li>
+<li><a href="#customer-login">Customer Login</a></li>
+<li><button id="chinav-admin-open" type="button" class="admin-menu-btn">Admin Login</button></li>
     </ul>
     <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
       <span></span><span></span><span></span>
@@ -947,24 +950,28 @@ updateBusinessTypes();
   font-size: 13px;
   margin-top: 15px;
 }
+  .admin-menu-btn {
+  background: linear-gradient(135deg, #d4af37, #f5d76e);
+  color: #10243a;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+.admin-menu-btn:hover {
+  background: #ffffff;
+  color: #10243a;
+}
 </style>
 
 <!-- ChiNav Supabase Admin Login Start -->
 
 <style>
-#chinav-admin-open {
-  position: fixed;
-  right: 20px;
-  bottom: 20px;
-  z-index: 99990;
-  padding: 13px 20px;
-  background: #12345a;
-  color: white;
-  border: 0;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
 
 #chinav-admin-panel {
   display: none;
@@ -1047,11 +1054,25 @@ updateBusinessTypes();
   background: #9b2635;
   color: white;
 }
-</style>
+  .admin-menu-btn {
+  background: linear-gradient(135deg, #d4af37, #f5d76e);
+  color: #10243a;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
 
-<button id="chinav-admin-open" type="button">
-  Admin Login
-</button>
+.admin-menu-btn:hover {
+  background: #ffffff;
+  color: #10243a;
+}
+  
+</style>
 
 <div id="chinav-admin-panel">
   <div class="admin-card">
