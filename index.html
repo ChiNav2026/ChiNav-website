@@ -1161,8 +1161,9 @@ async function verifyAdmin(user) {
   }
 
   form.hidden = true;
-  logoutButton.hidden = false;
-  showMessage('Admin verified. Login successful.');
+logoutButton.hidden = false;
+showMessage('Admin verified. Login successful.');
+window.location.href = 'admin.html';
   return true;
 }
 
