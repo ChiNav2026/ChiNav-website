@@ -1146,6 +1146,7 @@ closeButton.addEventListener('click', () => {
 });
 
 async function verifyAdmin(user) {
+  showMessage('Verifying Admin...');
   const { data, error } = await supabase
     .from('profiles')
     .select('role')
@@ -1163,6 +1164,7 @@ async function verifyAdmin(user) {
   form.hidden = true;
 logoutButton.hidden = false;
 showMessage('Admin verified. Login successful.');
+  panel.style.display = 'none';
 window.location.href = 'admin.html';
   return true;
 }
